@@ -83,17 +83,40 @@ class RegisterController extends Controller
         $data=User::where(['id' => $uid])->first();
         $msg=0;
         if($data){
-            $msg=1;
-            User::where(['id' => $uid])
+           
+            /*if(){
+               User::where(['id' => $uid])
+                ->update(['otp' => $six_digit_random_number]);
+            $tt = Sms::send($data->mobile,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
+            } else {*/
+
+              User::where(['id' => $uid])
                 ->update(['otp' => $six_digit_random_number,'mobile'=>$umobile]);
-            $tt = Sms::send($data->phone,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
+          //  $tt = Sms::send($data->mobile,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
+            
+
+           // }
+            
             //print_r($tt);
-                return dd($tt);
+                //return dd($tt);
         }
-          return "fail";
+          //return "fail";
         //return Route::dispatch(array("status" => $msg,'tt'=>$tt));
-        // return response()->json(array("status" => $msg,'tt'=>$tt));
+        return response()->json(array("status" => $msg));
     }
 
 
+
+public function checkOTP(Request $request){
+        $uid=Auth::guard('recruiter_user')->user()->id;
+        $otp=$request->all();
+        $data=RecruiterUser::where(['id' => $uid,'otp' => $otp['otp']])->first();
+        $msg=0;
+        if($data){
+            $msg=1;
+            RecruiterUser::where(['id' => $uid])
+                ->update(['otp' => '','verify_mobile' => 1]);
+        }
+        return response()->json(array("status" => $msg));
+    }
 }

@@ -178,7 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Softon\Sms\SmsServiceProvider::class, 
-
+        Softon\Indipay\IndipayServiceProvider::class,
+        Webup\LaravelSendinBlue\SendinBlueServiceProvider::class, 
 
     ],
 
@@ -229,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Sms' => Softon\Sms\Facades\Sms::class, 
+        'Indipay' => Softon\Indipay\Facades\Indipay::class,
 
     ],
 

@@ -12,7 +12,7 @@ return [
 
     'countryCode' => '+91',
 
-    'gateway' => 'Mocker',                     // Replace with the name of appropriate gateway
+    'gateway' => 'custom',                     // Replace with the name of appropriate gateway
 
 
     'view'    => 'File',

@@ -1,4 +1,1 @@
-Hi,
-Your password reset OTP is {{ $otp }}.
-Regards,
-XYZ
+Hi, mobile verification OTP is {{$otp}}

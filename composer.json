@@ -9,7 +9,9 @@
         "laravel/framework": "5.4.*",
         "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
-         "softon/sms": "^1.0" 
+        "softon/indipay": "^1.1",
+        "softon/sms": "^1.0",
+        "webup/laravel-sendinblue": "1.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -34,5 +34,10 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    
+      'sendinblue' => [
+       'url' => 'https://api.sendinblue.com/v2.0',
+       'key' => env('SENDINBLUE_KEY'),
+    ],
 
 ];
