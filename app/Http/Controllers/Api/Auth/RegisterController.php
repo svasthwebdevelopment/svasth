@@ -72,25 +72,26 @@ class RegisterController extends Controller
 
       public function sendOTP(Request $request){
 
-         $uid=$request['mobile'];
+         $uid=$request['user_id'];
+         $umobile=$request['mobile'];
+         //return $uid;
+         //return Route::dispatch($request);
         $six_digit_random_number = mt_rand(100000, 999999);
         //$message = $request->all();
         //$message['otp'] = $six_digit_random_number;
-        $data=User::where(['mobile' => $uid])->first();
+
+        $data=User::where(['id' => $uid])->first();
         $msg=0;
         if($data){
             $msg=1;
-            User::where(['mobile' => $uid])
-                ->update(['otp' => $six_digit_random_number]);
+            User::where(['id' => $uid])
+                ->update(['otp' => $six_digit_random_number,'mobile'=>$umobile]);
             $tt = Sms::send($data->phone,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
             //print_r($tt);
-        }else{
-              User::where(['mobile' => $uid])
-                ->update(['otp' => $six_digit_random_number]);
-
-
+                return dd($tt);
         }
-        return Route::dispatch(array("status" => $msg,'tt'=>$tt));
+          return "fail";
+        //return Route::dispatch(array("status" => $msg,'tt'=>$tt));
         // return response()->json(array("status" => $msg,'tt'=>$tt));
     }
 

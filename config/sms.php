@@ -69,8 +69,8 @@ return [
             'send_to_name' => 'numbers',           // Name of the field of recipient number
             'msg_name' => 'message',               // Name of the field of Message Text
             'others' => [                   // Other Authentication params with their values
-                'username' => 'satish.j@prathigna.com',
-                 'hash' => '2387bb1062a0160a115eb5ae1c6e4ec13b182201',
+                'username' => 'mohtashim.ae@prathigna.co.in',
+                 'hash' => 'f21881b7ee24fca00976dd103db31d104b634decb19cf0364d400e496459152b',
                 'sender' => 'PRTGNA',
                 
             ],

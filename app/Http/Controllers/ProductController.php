@@ -1,32 +1,13 @@
 <?php
-
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\products;
 
 class ProductController extends Controller
 {
-    
-
-
-
-
-
-    public function sendOTP(Request $request){
-        $uid=Auth::guard()->user()->id;
-        $six_digit_random_number = mt_rand(100000, 999999);
-        //$message = $request->all();
-        //$message['otp'] = $six_digit_random_number;
-        $data=User::where(['id' => $uid])->first();
-        $msg=0;
-        if($data){
-            $msg=1;
-            User::where(['id' => $uid])
-                ->update(['otp' => $six_digit_random_number]);
-            $tt = Sms::send($data->phone,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
-            //print_r($tt);
-        }
-        return response()->json(array("status" => $msg,'tt'=>$tt));
+     public function index()
+    {
+       return products::all();
     }
-    
 }
