@@ -1,138 +1,51 @@
 <?php
 
 namespace App\Http\Controllers\Api\Auth;
+
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Laravel\Passport\Client;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Input;
-
+use Softon\Sms\Facades\Sms;
 
 class RegisterController extends Controller
 {
 
-    private $client;
+     private $client;
 
     public function __construct(){
 
-    	$this->client = Client::find(1);
+      $this->client = Client::find(1);
+      // $this->user_id = User::fid(1);
     }
 
-
-  
-
-  //  protected function validator(array $data)
-  //   {
-  //       return Validator::make($data, [
-  //           'name' => 'required|max:15',
-  //           'email' => 'required|email|max:255|unique:recruiter_users',
-  //          // 'password' => 'required|min:6|confirmed',
-  //           'password' => 'required| min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%@]).*$/|confirmed',
-          
-           
-  //       ]);
-  //   }
-
-
-  // protected function create(array $data)
-  //   {
-  //       $create = User::create([
-  //          'name' => $data['company'],
-  //           'email' => $data['email'],
-  //           'password' => bcrypt($data['password']),
-          
-            
-  //       ]);
-  //       //return 
-
-       
-  //       return $create;
-  //   }
 
 
 
     public function register(Request $request){
 
 
-
-
-     $this-> Validator::make($request, [
-            'name' => 'required|max:15',
-            'email' => 'required|email|max:255|unique:name,email',
-           // 'password' => 'required|min:6|confirmed',
-            'password' => 'required|',
-          
-           
-        ]);
-
-
-
-        $user = User::create($request,[
-           'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => bcrypt($request['password']),
-          
-            
-        ]);
-
-
-  //      $validate = array(
-  //     'name'=>'required|min:3',
-  //   'email'=>'required|email|unique:users,email',
-  
-  //   'password' => 'required|min:6|confirmed'
-  // );
-
-  // $messsages = array(
-
-
-  //   'name.required'=>'You cant leave name field empty',
-  //   'email.required' => 'We need to know your e-mail address!',
+      $this->validate($request, [
+    'name' => 'required',
+    'email' => 'required|email|unique:users,email',
     
-  //   'password.required'=>'The field has to be :min chars long',
+    'password' => 'required|min:6|confirmed'
+      ]);
 
-  // );
-
- 
-
-
-
-
-  //  return $validator = Validator::make(Input::all(), $validate,$messsages);
- 
-//   // $messsages = array(
-//   //   'email.required'=>'You cant leave Email field empty',
-//   //   'name.required'=>'You cant leave name field empty',
-//   //     'name.min'=>'The field has to be :min chars long',
-//   // );
-
-// // $validator = Validator::make(
-// //     array('name' => 'Dayle'),
-// //     array('email' => array('required', $messages))
-// //      array('password' => array('required', $password))
-// // );
-
-    //  $this->validate($request, [
-    // 'name' => 'required',
-    // 'email' => 'required|email|unique:users,email',
-    // 'password' => 'required|min:6|confirmed'
-    // 	]);
-  
+            
    
-    	// $user = User::create([
+      $user = User::create([
 
-     //  'name' => request('name'),
-     //  'email' => request('email'),
-     //    //'mobile' => request('number'),
-     //  'password' => bcrypt(request('password'))
+      'name' => request('name'),
+      'email' => request('email'),
       
-
-    	// ]);
+      'password' => bcrypt(request('password'))
+      ]);
       
 
    $params = [
+     'user_id' => $user->id,
      'grant_type' => 'password',
      'client_id' => $this->client->id,
      'client_secret' => $this->client->secret,
@@ -153,4 +66,33 @@ class RegisterController extends Controller
 
 
     }
+
+
+
+
+      public function sendOTP(Request $request){
+
+         $uid=$request['mobile'];
+        $six_digit_random_number = mt_rand(100000, 999999);
+        //$message = $request->all();
+        //$message['otp'] = $six_digit_random_number;
+        $data=User::where(['mobile' => $uid])->first();
+        $msg=0;
+        if($data){
+            $msg=1;
+            User::where(['mobile' => $uid])
+                ->update(['otp' => $six_digit_random_number]);
+            $tt = Sms::send($data->phone,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
+            //print_r($tt);
+        }else{
+              User::where(['mobile' => $uid])
+                ->update(['otp' => $six_digit_random_number]);
+
+
+        }
+        return Route::dispatch(array("status" => $msg,'tt'=>$tt));
+        // return response()->json(array("status" => $msg,'tt'=>$tt));
+    }
+
+
 }
