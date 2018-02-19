@@ -92,7 +92,7 @@ class RegisterController extends Controller
 
               User::where(['id' => $uid])
                 ->update(['otp' => $six_digit_random_number,'mobile'=>$umobile]);
-          //  $tt = Sms::send($data->mobile,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
+           //$tt = Sms::send($data->mobile,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
             
 
            // }
@@ -108,7 +108,7 @@ class RegisterController extends Controller
 
 
 public function checkOTP(Request $request){
-        $uid=Auth::guard('recruiter_user')->user()->id;
+       // $uid=Auth::guard('recruiter_user')->user()->id;
         $otp=$request->all();
         $data=RecruiterUser::where(['id' => $uid,'otp' => $otp['otp']])->first();
         $msg=0;

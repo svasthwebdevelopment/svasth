@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 Route::post('login','Api\Auth\LoginController@login');
 Route::post('refresh','Api\Auth\LoginController@refresh');
 Route::post('sendotp','Api\Auth\RegisterController@sendOTP');
-
+Route::post('sendotp','Api\Auth\RegisterController@checkOTP');
 Route::middleware('auth:api')->group(function () {
     
     Route::post('logout','Api\Auth\LoginController@logout');
