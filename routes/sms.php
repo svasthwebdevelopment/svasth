@@ -12,7 +12,7 @@ return [
 
     'countryCode' => '+91',
 
-    'gateway' => 'Custom',                     // Replace with the name of appropriate gateway
+    'gateway' => 'custom',                     // Replace with the name of appropriate gateway
 
 
     'view'    => 'File',
@@ -68,10 +68,16 @@ return [
         'params' => [                       // Parameters to be included in the request
             'send_to_name' => 'numbers',           // Name of the field of recipient number
             'msg_name' => 'message',               // Name of the field of Message Text
-            'others' => [                   // Other Authentication params with their values
+           /* 'others' => [                   // Other Authentication params with their values
                 'username' => 'svasthlife@gmail.com',
                  'hash' => '07e566bf54d0a93bc6889eef3fe29662e60dcf5ec159c57478178922c73b2d9d',
                 'sender' => 'TXTLCL',
+                
+            ],*/
+             'others' => [                   // Other Authentication params with their values
+                'username' => 'mohtashim.ae@prathigna.co.in',
+                 'hash' => 'f21881b7ee24fca00976dd103db31d104b634decb19cf0364d400e496459152b',
+                'sender' => 'PRTGNA',
                 
             ],
         ],

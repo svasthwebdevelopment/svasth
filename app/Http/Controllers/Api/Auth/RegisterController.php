@@ -92,7 +92,7 @@ class RegisterController extends Controller
 
               User::where(['id' => $uid])
                 ->update(['otp' => $six_digit_random_number,'mobile'=>$umobile]);
-           //$tt = Sms::send($data->mobile,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
+          $tt = Sms::send($data->mobile,'sms.otp',['otp' => $six_digit_random_number]); //view->sms.test,
             
 
            // }
@@ -102,7 +102,7 @@ class RegisterController extends Controller
         }
           //return "fail";
         //return Route::dispatch(array("status" => $msg,'tt'=>$tt));
-        return response()->json(array("status" => $msg));
+        return response()->json(array("status" => $umobile));
     }
 
 
@@ -110,11 +110,12 @@ class RegisterController extends Controller
 public function checkOTP(Request $request){
        // $uid=Auth::guard('recruiter_user')->user()->id;
         $otp=$request->all();
-        $data=RecruiterUser::where(['id' => $uid,'otp' => $otp['otp']])->first();
+        $uid=$otp['user_id'];
+        $data=User::where(['id' => $uid,'otp' => $otp['otp']])->first();
         $msg=0;
         if($data){
             $msg=1;
-            RecruiterUser::where(['id' => $uid])
+            User::where(['id' => $uid])
                 ->update(['otp' => '','verify_mobile' => 1]);
         }
         return response()->json(array("status" => $msg));

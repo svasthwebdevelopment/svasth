@@ -1,13 +1,15 @@
 <?php
+
 namespace App\Http\Controllers\Api;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\products;
-
-class ProductController extends Controller
+use App\Model\Chart;
+class ChartController extends Controller
 {
      public function index()
     {
-       return products::all();
+        return Chart::all();
     }
+
 }

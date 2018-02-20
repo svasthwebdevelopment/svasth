@@ -11,11 +11,7 @@ class ProductController extends Controller
 
 	 public function index()
     {
-        return [
-
-    		'name'=>$this->title
-    	];
-
+        return products::all();
     }
 
 

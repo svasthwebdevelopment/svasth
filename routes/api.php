@@ -18,10 +18,14 @@ use Illuminate\Http\Request;
 Route::post('login','Api\Auth\LoginController@login');
 Route::post('refresh','Api\Auth\LoginController@refresh');
 Route::post('sendotp','Api\Auth\RegisterController@sendOTP');
-Route::post('sendotp','Api\Auth\RegisterController@checkOTP');
+Route::post('checkOTP','Api\Auth\RegisterController@checkOTP');
 Route::middleware('auth:api')->group(function () {
     
     Route::post('logout','Api\Auth\LoginController@logout');
 });
 
  Route::get('products','Api\ProductController@index');
+ Route::get('chart','Api\ChartController@index');
+ Route::get('appstatus','Api\AppStatusController@index');
+ Route::get('area','Api\AreaController@index');
+ Route::get('getuserdetails','Api\UserController@index');
